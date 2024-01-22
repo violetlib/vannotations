@@ -1,17 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="VAnnotations" default="release"
-  xmlns:resolver="antlib:org.apache.maven.resolver.ant"
-  >
+<project name="VAnnotations" default="release">
 
   <property name="RELEASE" value="0.9"/>
-
-  <property name="annotationsVersion" value="20.1.0"/>
-
-  <!--
-    To use the Maven resolver, the Maven resolver ant tasks uber JAR must installed in .ant/lib.
-    See Maven Central: maven-resolver-ant-tasks-*-uber.jar
-  -->
 
   <tstamp>
     <format property="NOW" timezone="GMT" pattern="yyyy-MM-dd'T'HH:mm:ss'Z'"/>
@@ -39,23 +30,9 @@
     <echo file="${classesdir}/org/violetlib/annotations/BUILD.txt" message="${NOW}"/>
   </target>
 
-  <target name="resolve">
-    <resolver:resolve>
-      <dependencies>
-        <dependency coords="org.jetbrains:annotations:${annotationsVersion}:provided"/>
-      </dependencies>
-      <path refid="maven.path" classpath="compile"/>
-    </resolver:resolve>
-  </target>
-
-  <path id="cp">
-    <path refid="maven.path"/>
-  </path>
-
-  <target name="compile-Java" depends="resolve">
+  <target name="compile-Java">
     <mkdir dir="${classesdir}"/>
     <javac
-      classpathref="cp"
       encoding="UTF-8"
       release="8"
       srcdir="${src}"
